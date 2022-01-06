@@ -270,26 +270,30 @@ class Treasury:
         self._done.wait()
 
     def watch_transfers(self):
-        start = time.time()
-        logger.info(
-            'pulling treasury transfer events, please wait patiently this takes a while...'
-        )
-        # Treasury didn't exist prior to block 10502337
-        self.log_filter_in = web3.eth.filter({"fromBlock": 10502337, "topics": self._topics_in})
-        self.log_filter_out = web3.eth.filter({"fromBlock": 10502337, "topics": self._topics_out})
-        for block in chain.new_blocks(height_buffer=12):
-            logs = self.log_filter_in.get_new_entries()
-            self.process_transfers(logs)
-            logs = self.log_filter_out.get_new_entries()
-            self.process_transfers(logs)
-            if not self._done.is_set():
-                self._done.set()
-                logger.info(
-                    "loaded treasury transfer events in %.3fs", time.time() - start
-                )
-            if not self._watch_events_forever:
-                break
-            time.sleep(30)
+        try:
+            start = time.time()
+            logger.info(
+                'pulling treasury transfer events, please wait patiently this takes a while...'
+            )
+            # Treasury didn't exist prior to block 10502337
+            self.log_filter_in = web3.eth.filter({"fromBlock": 10502337, "topics": self._topics_in})
+            self.log_filter_out = web3.eth.filter({"fromBlock": 10502337, "topics": self._topics_out})
+            for block in chain.new_blocks(height_buffer=12):
+                logs = self.log_filter_in.get_new_entries()
+                self.process_transfers(logs)
+                logs = self.log_filter_out.get_new_entries()
+                self.process_transfers(logs)
+                if not self._done.is_set():
+                    self._done.set()
+                    logger.info(
+                        "loaded treasury transfer events in %.3fs", time.time() - start
+                    )
+                if not self._watch_events_forever:
+                    break
+                time.sleep(30)
+        except:
+            self._done.set()
+            raise
 
     def process_transfers(self, logs):
         for log in logs:
