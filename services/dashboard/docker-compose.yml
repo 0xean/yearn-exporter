@@ -22,6 +22,8 @@ services:
       - ETHERSCAN_TOKEN
       - EXPLORER
       - SLEEP_SECONDS
+      - ENV
+      - SENTRY_DSN
     volumes:
       - solidity_compilers:/root/.solcx
       - vyper_compilers:/root/.vvm
@@ -42,6 +44,8 @@ services:
       - POOL_SIZE
       - CHUNK_SIZE
       - RESOLUTION
+      - ENV
+      - SENTRY_DSN
     volumes:
       - solidity_compilers:/root/.solcx
       - vyper_compilers:/root/.vvm
@@ -59,6 +63,8 @@ services:
       - EXPLORER=$FTM_EXPLORER
       - SLEEP_SECONDS
       - NETWORK=ftm-main
+      - ENV
+      - SENTRY_DSN
     volumes:
       - solidity_compilers:/root/.solcx
       - vyper_compilers:/root/.vvm
@@ -79,6 +85,8 @@ services:
       - POOL_SIZE
       - CHUNK_SIZE
       - RESOLUTION
+      - ENV
+      - SENTRY_DSN
     volumes:
       - solidity_compilers:/root/.solcx
       - vyper_compilers:/root/.vvm
@@ -100,6 +108,8 @@ services:
       - CHUNK_SIZE
       - RESOLUTION
       - SKIP_WALLET_STATS
+      - ENV
+      - SENTRY_DSN
     volumes:
       - solidity_compilers:/root/.solcx
       - vyper_compilers:/root/.vvm
@@ -120,6 +130,8 @@ services:
       - POOL_SIZE
       - CHUNK_SIZE
       - RESOLUTION
+      - ENV
+      - SENTRY_DSN
     volumes:
       - solidity_compilers:/root/.solcx
       - vyper_compilers:/root/.vvm
@@ -140,6 +152,8 @@ services:
       - POOL_SIZE
       - CHUNK_SIZE
       - RESOLUTION
+      - ENV
+      - SENTRY_DSN
     volumes:
       - solidity_compilers:/root/.solcx
       - vyper_compilers:/root/.vvm
@@ -156,6 +170,8 @@ services:
       - POSTGRES_PASSWORD=yearn-exporter
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
+      - ENV
+      - SENTRY_DSN
     volumes:
       - solidity_compilers:/root/.solcx
       - vyper_compilers:/root/.vvm
